@@ -1,6 +1,6 @@
 //
-//  cardlistdemoApp.swift
-//  cardlistdemo
+//  DemoApp.swift
+//  Demo
 //
 //  Created by mac on 2026/2/23.
 //
@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct cardlistdemoApp: App {
+struct DemoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CardSwipeDemoView()
         }
     }
 }

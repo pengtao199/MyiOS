@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		046E982F2F4C1AC1002D1988 /* cardlistdemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cardlistdemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		046E982F2F4C1AC1002D1988 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		046E98312F4C1AC1002D1988 /* cardlistdemo */ = {
+		046E98312F4C1AC1002D1988 /* Demo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = cardlistdemo;
+			path = Demo;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		046E98262F4C1AC1002D1988 = {
 			isa = PBXGroup;
 			children = (
-				046E98312F4C1AC1002D1988 /* cardlistdemo */,
+				046E98312F4C1AC1002D1988 /* Demo */,
 				046E98302F4C1AC1002D1988 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 		046E98302F4C1AC1002D1988 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				046E982F2F4C1AC1002D1988 /* cardlistdemo.app */,
+				046E982F2F4C1AC1002D1988 /* Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		046E982E2F4C1AC1002D1988 /* cardlistdemo */ = {
+		046E982E2F4C1AC1002D1988 /* Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 046E983A2F4C1AC4002D1988 /* Build configuration list for PBXNativeTarget "cardlistdemo" */;
+			buildConfigurationList = 046E983A2F4C1AC4002D1988 /* Build configuration list for PBXNativeTarget "Demo" */;
 			buildPhases = (
 				046E982B2F4C1AC1002D1988 /* Sources */,
 				046E982C2F4C1AC1002D1988 /* Frameworks */,
@@ -61,13 +61,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				046E98312F4C1AC1002D1988 /* cardlistdemo */,
+				046E98312F4C1AC1002D1988 /* Demo */,
 			);
-			name = cardlistdemo;
+			name = Demo;
 			packageProductDependencies = (
 			);
-			productName = cardlistdemo;
-			productReference = 046E982F2F4C1AC1002D1988 /* cardlistdemo.app */;
+			productName = Demo;
+			productReference = 046E982F2F4C1AC1002D1988 /* Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 046E982A2F4C1AC1002D1988 /* Build configuration list for PBXProject "cardlistdemo" */;
+			buildConfigurationList = 046E982A2F4C1AC1002D1988 /* Build configuration list for PBXProject "Demo" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				046E982E2F4C1AC1002D1988 /* cardlistdemo */,
+				046E982E2F4C1AC1002D1988 /* Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -261,14 +261,19 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fypix.cardlistdemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fypix.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -293,14 +298,19 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fypix.cardlistdemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fypix.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -313,7 +323,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		046E982A2F4C1AC1002D1988 /* Build configuration list for PBXProject "cardlistdemo" */ = {
+		046E982A2F4C1AC1002D1988 /* Build configuration list for PBXProject "Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				046E98382F4C1AC4002D1988 /* Debug */,
@@ -322,7 +332,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		046E983A2F4C1AC4002D1988 /* Build configuration list for PBXNativeTarget "cardlistdemo" */ = {
+		046E983A2F4C1AC4002D1988 /* Build configuration list for PBXNativeTarget "Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				046E983B2F4C1AC4002D1988 /* Debug */,
