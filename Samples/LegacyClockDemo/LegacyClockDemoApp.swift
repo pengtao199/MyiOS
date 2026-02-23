@@ -1,0 +1,17 @@
+//
+//  demoApp.swift
+//  demo
+//
+//  Created by SK on 2026/1/20.
+//
+
+import SwiftUI
+
+@main
+struct demoApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
