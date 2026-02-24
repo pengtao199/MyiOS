@@ -23,17 +23,13 @@ struct IconShowcasePage: View {
                 IconSingleOfficial(item: items[0])
                 IconRowOfficial(items: items)
 
-                Text("Handcrafted Replica")
-                    .font(.headline)
-                    .foregroundStyle(.white)
-                IconSingleReplica(item: items[0])
-                IconRowReplica(items: items)
-
                 Text("LiquidGlassKit (Open Source)")
                     .font(.headline)
                     .foregroundStyle(.white)
                 LiquidGlassKitSingleIcon(systemName: items[0].systemName)
                     .frame(width: 56, height: 56)
+                LiquidGlassKitIconRow(systemNames: Array(items.prefix(2).map(\.systemName)))
+                    .frame(width: 130, height: 64)
                 LiquidGlassKitIconRow(systemNames: items.map(\.systemName))
                     .frame(width: 188, height: 64)
 
@@ -97,89 +93,6 @@ struct IconRowOfficial: View {
     }
 }
 
-struct IconRowReplica: View {
-    let items: [IconItem]
-    @State private var capsuleScale: CGFloat = 1
-    @State private var isAnimatingBounce = false
-
-    var body: some View {
-        HStack(spacing: 2) {
-            ForEach(items) { item in
-                Button {
-                    print("\(item.label) tapped")
-                } label: {
-                    Image(systemName: item.systemName)
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundStyle(.white)
-                        .frame(width: 56, height: 56)
-                }
-                .buttonStyle(.plain)
-            }
-        }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 6)
-        .contentShape(.capsule)
-        .background {
-            Capsule()
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            .white.opacity(0.22),
-                            .white.opacity(0.08),
-                            .white.opacity(0.14)
-                        ],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .background(
-                    Capsule()
-                        .fill(.ultraThinMaterial)
-                )
-                .overlay {
-                    Capsule()
-                        .strokeBorder(.white.opacity(0.34), lineWidth: 1)
-                }
-                .shadow(color: .black.opacity(0.18), radius: 10, x: 0, y: 6)
-        }
-        .scaleEffect(capsuleScale)
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { _ in
-                    runBounceIfNeeded()
-                }
-                .onEnded { _ in
-                    if !isAnimatingBounce {
-                        runBounceIfNeeded()
-                    }
-                }
-        )
-    }
-
-    private func runBounceIfNeeded() {
-        guard !isAnimatingBounce else { return }
-        isAnimatingBounce = true
-        withAnimation(.spring(response: 0.12, dampingFraction: 0.8)) {
-            capsuleScale = 1.08
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.07) {
-            withAnimation(.spring(response: 0.14, dampingFraction: 0.62)) {
-                capsuleScale = 0.9
-            }
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
-            withAnimation(.spring(response: 0.28, dampingFraction: 0.78)) {
-                capsuleScale = 1
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
-                isAnimatingBounce = false
-            }
-        }
-    }
-}
-
 struct IconSingleOfficial: View {
     let item: IconItem
 
@@ -205,84 +118,6 @@ struct IconSingleOfficial: View {
                     .frame(width: 56, height: 56)
             }
             .buttonStyle(.plain)
-        }
-    }
-}
-
-struct IconSingleReplica: View {
-    let item: IconItem
-    @State private var circleScale: CGFloat = 1
-    @State private var isAnimatingBounce = false
-
-    var body: some View {
-        Button {
-            print("\(item.label) tapped")
-        } label: {
-            ZStack {
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: [
-                                .white.opacity(0.22),
-                                .white.opacity(0.08),
-                                .white.opacity(0.14)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .background(
-                        Circle()
-                            .fill(.ultraThinMaterial)
-                    )
-                    .overlay {
-                        Circle()
-                            .strokeBorder(.white.opacity(0.34), lineWidth: 1)
-                    }
-                    .shadow(color: .black.opacity(0.18), radius: 10, x: 0, y: 6)
-
-                Image(systemName: item.systemName)
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundStyle(.white)
-            }
-            .frame(width: 56, height: 56)
-        }
-        .buttonStyle(.plain)
-        .contentShape(.circle)
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { _ in
-                    runBounceIfNeeded()
-                }
-                .onEnded { _ in
-                    if !isAnimatingBounce {
-                        runBounceIfNeeded()
-                    }
-                }
-        )
-        .scaleEffect(circleScale)
-    }
-
-    private func runBounceIfNeeded() {
-        guard !isAnimatingBounce else { return }
-        isAnimatingBounce = true
-        withAnimation(.spring(response: 0.12, dampingFraction: 0.8)) {
-            circleScale = 1.08
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.07) {
-            withAnimation(.spring(response: 0.14, dampingFraction: 0.62)) {
-                circleScale = 0.9
-            }
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
-            withAnimation(.spring(response: 0.28, dampingFraction: 0.78)) {
-                circleScale = 1
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
-                isAnimatingBounce = false
-            }
         }
     }
 }
