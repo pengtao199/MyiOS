@@ -1,4 +1,5 @@
 import SwiftUI
+import LiquidGlass
 
 private enum LiquidGlassDesign {
     static let cornerRadius: CGFloat = 22

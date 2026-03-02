@@ -1,4 +1,5 @@
 {
+  "originHash" : "a618f1cf3f0e6849acae10c351a8fa6a38ca0d99f6fa99dd669b5570182f5e7c",
   "pins" : [
     {
       "identity" : "gelatin",
@@ -7,6 +8,15 @@
       "state" : {
         "revision" : "2a3ad4cdabe0b9d33b75b6d8839f6d36a1a1b81e",
         "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "liquidglass",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Nikiteizzz/LiquidGlass.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "7b0bbe2ee3f8b0df1a27dab0f8ada1759ddbecf3"
       }
     },
     {
@@ -19,5 +29,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
