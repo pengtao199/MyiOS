@@ -66,7 +66,7 @@ struct DemoContainerDemoView: View {
                     if let selectedEntry {
                         selectedEntry.destinationView
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .ignoresSafeArea(.container, edges: [.top, .bottom])
+                            .ignoresSafeArea(.container, edges: .bottom)
                             .transition(.opacity)
                     } else {
                         homeGuideView
@@ -74,7 +74,9 @@ struct DemoContainerDemoView: View {
                     }
                 }
 
-                topMenuButton(safeArea: safeArea)
+                if selectedEntry == nil {
+                    topMenuButton(safeArea: safeArea)
+                }
             }
         } menuView: { safeArea in
             sidebarView(safeArea: safeArea)
@@ -103,7 +105,9 @@ struct DemoContainerDemoView: View {
     }
 
     private func topMenuButton(safeArea: EdgeInsets) -> some View {
-        HStack(spacing: 10) {
+        let topInset = max(safeArea.top, 44)
+
+        return HStack(spacing: 10) {
             Button {
                 withAnimation(.snappy(duration: 0.28)) {
                     showMenu.toggle()
@@ -116,17 +120,22 @@ struct DemoContainerDemoView: View {
                     .background(.black.opacity(0.35), in: .circle)
             }
 
-            Text(selectedEntry?.title ?? "Home")
-                .font(.headline)
-                .foregroundStyle(.white)
+            Text("左滑打开菜单")
+                .font(.subheadline)
+                .foregroundStyle(.white.opacity(0.86))
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .background(.white.opacity(0.12), in: .capsule)
             Spacer()
         }
-        .padding(.top, safeArea.top + 8)
+        .padding(.top, topInset + 8)
         .padding(.horizontal, 14)
     }
 
     private func sidebarView(safeArea: EdgeInsets) -> some View {
-        VStack(alignment: .leading, spacing: 14) {
+        let topInset = max(safeArea.top, 44)
+
+        return VStack(alignment: .leading, spacing: 14) {
             Text("Demos")
                 .font(.system(size: 30, weight: .black, design: .rounded))
                 .foregroundStyle(.white)
@@ -158,7 +167,7 @@ struct DemoContainerDemoView: View {
             Spacer()
         }
         .padding(.horizontal, 16)
-        .padding(.top, safeArea.top + 8)
+        .padding(.top, topInset + 8)
         .padding(.bottom, safeArea.bottom + 8)
     }
 }
