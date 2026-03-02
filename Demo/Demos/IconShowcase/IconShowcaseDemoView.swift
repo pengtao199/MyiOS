@@ -5,156 +5,137 @@
 //  Created by Codex on 2026/2/24.
 //
 
+import LiquidGlassKit
 import SwiftUI
 import UIKit
 
 struct IconShowcaseDemoView: View {
-    private let items: [IconItem] = [
-        .init(systemName: "square.and.arrow.up", label: "Share"),
-        .init(systemName: "bookmark.fill", label: "Save"),
-        .init(systemName: "heart.fill", label: "Like")
-    ]
+    @State private var sliderValue: Float = 0.42
+    @State private var isSwitchOn = true
+    @State private var isLensLifted = false
 
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 28) {
-                Text("Adaptive Solution")
-                    .font(.headline)
-                    .foregroundStyle(.white)
-                if #available(iOS 26.0, *) {
-                    IconSingleOfficial(item: items[0])
-                    IconRowOfficial(items: Array(items.prefix(2)))
-                        .frame(width: 130, height: 64)
-                    IconRowOfficial(items: items)
-                        .frame(width: 188, height: 64)
-                } else {
-                    LiquidGlassKitSingleIcon(systemName: items[0].systemName)
-                        .frame(width: 56, height: 56)
-                    LiquidGlassKitIconRow(systemNames: Array(items.prefix(2).map(\.systemName)))
-                        .frame(width: 130, height: 64)
-                    LiquidGlassKitIconRow(systemNames: items.map(\.systemName))
-                        .frame(width: 188, height: 64)
-                }
+            ScrollView {
+                VStack(alignment: .leading, spacing: 18) {
+                    Text("LiquidGlassKit Showcase")
+                        .font(.system(size: 30, weight: .black, design: .rounded))
+                        .foregroundStyle(.white)
 
-                Spacer()
+                    Text("直接使用开源 LiquidGlassKit，不再维护本地复刻")
+                        .font(.subheadline)
+                        .foregroundStyle(.white.opacity(0.78))
+
+                    showcaseCard(title: "Icon Effect", subtitle: "VisualEffectView + LiquidGlassEffect") {
+                        HStack(spacing: 14) {
+                            LiquidGlassIconView(systemName: "star.fill")
+                                .frame(width: 58, height: 58)
+                            LiquidGlassIconView(systemName: "paperplane.fill")
+                                .frame(width: 58, height: 58)
+                            LiquidGlassIconView(systemName: "bookmark.fill")
+                                .frame(width: 58, height: 58)
+                        }
+                    }
+
+                    showcaseCard(title: "Container Merge", subtitle: "LiquidGlassContainerEffect") {
+                        LiquidGlassContainerRow(systemNames: ["heart.fill", "tray.full.fill", "arrow.up.circle.fill"])
+                            .frame(height: 66)
+                    }
+
+                    showcaseCard(title: "Slider", subtitle: "LiquidGlassSlider.make") {
+                        VStack(alignment: .leading, spacing: 10) {
+                            LiquidGlassSliderRepresentable(value: $sliderValue)
+                                .frame(height: 54)
+
+                            Text("Value: \(sliderValue, format: .number.precision(.fractionLength(2)))")
+                                .font(.caption)
+                                .foregroundStyle(.white.opacity(0.74))
+                        }
+                    }
+
+                    showcaseCard(title: "Switch", subtitle: "LiquidGlassSwitch.make") {
+                        HStack(spacing: 12) {
+                            LiquidGlassSwitchRepresentable(isOn: $isSwitchOn)
+                                .frame(width: 74, height: 42)
+
+                            Text(isSwitchOn ? "Enabled" : "Disabled")
+                                .font(.headline)
+                                .foregroundStyle(.white)
+                        }
+                    }
+
+                    showcaseCard(title: "Lens", subtitle: "LiquidLensView") {
+                        VStack(alignment: .leading, spacing: 10) {
+                            LiquidLensRepresentable(isLifted: isLensLifted)
+                                .frame(width: 132, height: 56)
+
+                            Button(isLensLifted ? "Set Resting" : "Set Lifted") {
+                                withAnimation(.snappy(duration: 0.24)) {
+                                    isLensLifted.toggle()
+                                }
+                            }
+                            .buttonStyle(.plain)
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 8)
+                            .background(.white.opacity(0.14), in: .capsule)
+                        }
+                    }
+                }
+                .padding(20)
+                .padding(.top, 6)
             }
-            .padding(20)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .scrollIndicators(.hidden)
             .background(FlowingBlueBackground())
         }
         .toolbar(.hidden, for: .navigationBar)
     }
-}
 
-struct IconItem: Identifiable {
-    let id = UUID()
-    let systemName: String
-    let label: String
-}
-
-struct IconRowOfficial: View {
-    let items: [IconItem]
-
-    var body: some View {
-        if #available(iOS 26.0, *) {
-            GlassEffectContainer(spacing: 10) {
-                HStack(spacing: 2) {
-                    ForEach(items) { item in
-                        Button {
-                            // Intentionally left blank for demo action.
-                        } label: {
-                            Image(systemName: item.systemName)
-                                .font(.system(size: 20, weight: .semibold))
-                                .foregroundStyle(.white)
-                                .frame(width: 56, height: 56)
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
-                .padding(.horizontal, 8)
-                .padding(.vertical, 6)
-                .glassEffect(.regular.interactive(), in: .capsule)
-            }
-        } else {
-            HStack(spacing: 2) {
-                ForEach(items) { item in
-                    Button {
-                        // Intentionally left blank for demo action.
-                    } label: {
-                        Image(systemName: item.systemName)
-                            .font(.system(size: 20, weight: .semibold))
-                            .foregroundStyle(.white)
-                            .frame(width: 56, height: 56)
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 6)
+    @ViewBuilder
+    private func showcaseCard<Content: View>(title: String, subtitle: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(title)
+                .font(.headline)
+                .foregroundStyle(.white)
+            Text(subtitle)
+                .font(.caption)
+                .foregroundStyle(.white.opacity(0.68))
+            content()
         }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.white.opacity(0.08), in: .rect(cornerRadius: 16))
     }
 }
 
-struct IconSingleOfficial: View {
-    let item: IconItem
-
-    var body: some View {
-        if #available(iOS 26.0, *) {
-            Button {
-                // Intentionally left blank for demo action.
-            } label: {
-                Image(systemName: item.systemName)
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundStyle(.white)
-                    .frame(width: 56, height: 56)
-                    .glassEffect(.regular.interactive(), in: .circle)
-            }
-            .buttonStyle(.plain)
-        } else {
-            Button {
-                // Intentionally left blank for demo action.
-            } label: {
-                Image(systemName: item.systemName)
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundStyle(.white)
-                    .frame(width: 56, height: 56)
-            }
-            .buttonStyle(.plain)
-        }
-    }
-}
-
-struct LiquidGlassKitSingleIcon: UIViewRepresentable {
+private struct LiquidGlassIconView: UIViewRepresentable {
     let systemName: String
 
     func makeUIView(context: Context) -> UIView {
         let host = UIView()
         host.backgroundColor = .clear
 
-        let effectView = VisualEffectView(effect: LiquidGlassEffect(style: .regular, isNative: false))
-        effectView.contentView.backgroundColor = .clear
-        effectView.layer.cornerRadius = 27
-        effectView.layer.cornerCurve = .continuous
-        effectView.clipsToBounds = false
-        effectView.contentView.layer.cornerRadius = 27
-        effectView.contentView.layer.cornerCurve = .continuous
-        effectView.contentView.layer.masksToBounds = true
-        effectView.translatesAutoresizingMaskIntoConstraints = false
-        host.addSubview(effectView)
+        let glass = VisualEffectView(effect: LiquidGlassEffect(style: .regular, isNative: true))
+        glass.layer.cornerRadius = 28
+        glass.layer.cornerCurve = .continuous
+        glass.translatesAutoresizingMaskIntoConstraints = false
+        host.addSubview(glass)
 
-        let icon = UIImageView(image: UIImage(systemName: systemName))
-        icon.tintColor = .white
-        icon.preferredSymbolConfiguration = .init(pointSize: 20, weight: .semibold)
-        icon.translatesAutoresizingMaskIntoConstraints = false
-        effectView.contentView.addSubview(icon)
+        let image = UIImageView(image: UIImage(systemName: systemName))
+        image.contentMode = .center
+        image.tintColor = .white
+        image.preferredSymbolConfiguration = .init(pointSize: 20, weight: .semibold)
+        image.translatesAutoresizingMaskIntoConstraints = false
+        glass.contentView.addSubview(image)
 
         NSLayoutConstraint.activate([
-            effectView.leadingAnchor.constraint(equalTo: host.leadingAnchor, constant: 1),
-            effectView.trailingAnchor.constraint(equalTo: host.trailingAnchor, constant: -1),
-            effectView.topAnchor.constraint(equalTo: host.topAnchor, constant: 1),
-            effectView.bottomAnchor.constraint(equalTo: host.bottomAnchor, constant: -1),
-            icon.centerXAnchor.constraint(equalTo: effectView.contentView.centerXAnchor),
-            icon.centerYAnchor.constraint(equalTo: effectView.contentView.centerYAnchor)
+            glass.leadingAnchor.constraint(equalTo: host.leadingAnchor),
+            glass.trailingAnchor.constraint(equalTo: host.trailingAnchor),
+            glass.topAnchor.constraint(equalTo: host.topAnchor),
+            glass.bottomAnchor.constraint(equalTo: host.bottomAnchor),
+            image.centerXAnchor.constraint(equalTo: glass.contentView.centerXAnchor),
+            image.centerYAnchor.constraint(equalTo: glass.contentView.centerYAnchor)
         ])
 
         return host
@@ -163,57 +144,61 @@ struct LiquidGlassKitSingleIcon: UIViewRepresentable {
     func updateUIView(_ uiView: UIView, context: Context) {}
 }
 
-struct LiquidGlassKitIconRow: UIViewRepresentable {
+private struct LiquidGlassContainerRow: UIViewRepresentable {
     let systemNames: [String]
 
     func makeUIView(context: Context) -> UIView {
         let host = UIView()
         host.backgroundColor = .clear
 
-        let capsule = VisualEffectView(effect: LiquidGlassEffect(style: .regular, isNative: false))
-        capsule.contentView.backgroundColor = .clear
-        capsule.layer.cornerRadius = 30
-        capsule.layer.cornerCurve = .continuous
-        capsule.clipsToBounds = false
-        capsule.contentView.layer.cornerRadius = 30
-        capsule.contentView.layer.cornerCurve = .continuous
-        capsule.contentView.layer.masksToBounds = true
-        capsule.translatesAutoresizingMaskIntoConstraints = false
-        host.addSubview(capsule)
+        let containerEffect = LiquidGlassContainerEffect(isNative: true)
+        containerEffect.spacing = 10
+        let container = VisualEffectView(effect: containerEffect)
+        container.layer.cornerRadius = 32
+        container.layer.cornerCurve = .continuous
+        container.translatesAutoresizingMaskIntoConstraints = false
+        host.addSubview(container)
 
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.alignment = .center
+        stack.alignment = .fill
         stack.distribution = .fillEqually
-        stack.spacing = 2
+        stack.spacing = 8
         stack.translatesAutoresizingMaskIntoConstraints = false
-        capsule.contentView.addSubview(stack)
+        container.contentView.addSubview(stack)
 
         for name in systemNames {
-            let icon = UIImageView(image: UIImage(systemName: name))
-            icon.tintColor = .white
-            icon.preferredSymbolConfiguration = .init(pointSize: 20, weight: .semibold)
-            icon.contentMode = .center
-            icon.translatesAutoresizingMaskIntoConstraints = false
+            let iconGlass = VisualEffectView(effect: LiquidGlassEffect(style: .regular, isNative: true))
+            iconGlass.layer.cornerRadius = 24
+            iconGlass.layer.cornerCurve = .continuous
+            iconGlass.translatesAutoresizingMaskIntoConstraints = false
+
+            let image = UIImageView(image: UIImage(systemName: name))
+            image.contentMode = .center
+            image.tintColor = .white
+            image.preferredSymbolConfiguration = .init(pointSize: 18, weight: .semibold)
+            image.translatesAutoresizingMaskIntoConstraints = false
+            iconGlass.contentView.addSubview(image)
 
             NSLayoutConstraint.activate([
-                icon.widthAnchor.constraint(equalToConstant: 56),
-                icon.heightAnchor.constraint(equalToConstant: 56)
+                image.centerXAnchor.constraint(equalTo: iconGlass.contentView.centerXAnchor),
+                image.centerYAnchor.constraint(equalTo: iconGlass.contentView.centerYAnchor),
+                iconGlass.heightAnchor.constraint(equalToConstant: 48)
             ])
 
-            stack.addArrangedSubview(icon)
+            stack.addArrangedSubview(iconGlass)
         }
 
         NSLayoutConstraint.activate([
-            capsule.leadingAnchor.constraint(equalTo: host.leadingAnchor),
-            capsule.trailingAnchor.constraint(equalTo: host.trailingAnchor),
-            capsule.topAnchor.constraint(equalTo: host.topAnchor, constant: 2),
-            capsule.bottomAnchor.constraint(equalTo: host.bottomAnchor, constant: -2),
+            container.leadingAnchor.constraint(equalTo: host.leadingAnchor),
+            container.trailingAnchor.constraint(equalTo: host.trailingAnchor),
+            container.topAnchor.constraint(equalTo: host.topAnchor),
+            container.bottomAnchor.constraint(equalTo: host.bottomAnchor),
 
-            stack.leadingAnchor.constraint(equalTo: capsule.contentView.leadingAnchor, constant: 8),
-            stack.trailingAnchor.constraint(equalTo: capsule.contentView.trailingAnchor, constant: -8),
-            stack.topAnchor.constraint(equalTo: capsule.contentView.topAnchor, constant: 4),
-            stack.bottomAnchor.constraint(equalTo: capsule.contentView.bottomAnchor, constant: -4)
+            stack.leadingAnchor.constraint(equalTo: container.contentView.leadingAnchor, constant: 10),
+            stack.trailingAnchor.constraint(equalTo: container.contentView.trailingAnchor, constant: -10),
+            stack.topAnchor.constraint(equalTo: container.contentView.topAnchor, constant: 8),
+            stack.bottomAnchor.constraint(equalTo: container.contentView.bottomAnchor, constant: -8)
         ])
 
         return host
@@ -222,7 +207,167 @@ struct LiquidGlassKitIconRow: UIViewRepresentable {
     func updateUIView(_ uiView: UIView, context: Context) {}
 }
 
-struct FlowingBlueBackground: View {
+private final class SliderHostView: UIView {
+    let slider: AnySlider
+
+    init() {
+        slider = LiquidGlassSlider.make(isNative: true)
+        super.init(frame: .zero)
+        backgroundColor = .clear
+
+        slider.minimumValue = 0
+        slider.maximumValue = 1
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(slider)
+
+        NSLayoutConstraint.activate([
+            slider.leadingAnchor.constraint(equalTo: leadingAnchor),
+            slider.trailingAnchor.constraint(equalTo: trailingAnchor),
+            slider.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+private struct LiquidGlassSliderRepresentable: UIViewRepresentable {
+    @Binding var value: Float
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(parent: self)
+    }
+
+    func makeUIView(context: Context) -> SliderHostView {
+        let host = SliderHostView()
+        host.slider.value = value
+        host.slider.addTarget(context.coordinator, action: #selector(Coordinator.valueDidChange(_:)), for: .valueChanged)
+        return host
+    }
+
+    func updateUIView(_ uiView: SliderHostView, context: Context) {
+        if abs(uiView.slider.value - value) > 0.0001 {
+            uiView.slider.setValue(value, animated: true)
+        }
+    }
+
+    final class Coordinator: NSObject {
+        var parent: LiquidGlassSliderRepresentable
+
+        init(parent: LiquidGlassSliderRepresentable) {
+            self.parent = parent
+        }
+
+        @objc func valueDidChange(_ sender: UIControl) {
+            guard let slider = sender as? (UIControl & AnySlider) else { return }
+            parent.value = slider.value
+        }
+    }
+}
+
+private final class SwitchHostView: UIView {
+    let switchControl: AnySwitch
+
+    init() {
+        switchControl = LiquidGlassSwitch.make(isNative: true)
+        super.init(frame: .zero)
+        backgroundColor = .clear
+
+        switchControl.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(switchControl)
+
+        NSLayoutConstraint.activate([
+            switchControl.centerXAnchor.constraint(equalTo: centerXAnchor),
+            switchControl.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+private struct LiquidGlassSwitchRepresentable: UIViewRepresentable {
+    @Binding var isOn: Bool
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(parent: self)
+    }
+
+    func makeUIView(context: Context) -> SwitchHostView {
+        let host = SwitchHostView()
+        host.switchControl.setOn(isOn, animated: false)
+        host.switchControl.addTarget(context.coordinator, action: #selector(Coordinator.switchDidChange(_:)), for: .valueChanged)
+        return host
+    }
+
+    func updateUIView(_ uiView: SwitchHostView, context: Context) {
+        if uiView.switchControl.isOn != isOn {
+            uiView.switchControl.setOn(isOn, animated: true)
+        }
+    }
+
+    final class Coordinator: NSObject {
+        var parent: LiquidGlassSwitchRepresentable
+
+        init(parent: LiquidGlassSwitchRepresentable) {
+            self.parent = parent
+        }
+
+        @objc func switchDidChange(_ sender: UIControl) {
+            guard let switchControl = sender as? (UIControl & AnySwitch) else { return }
+            parent.isOn = switchControl.isOn
+        }
+    }
+}
+
+private final class LensHostView: UIView {
+    let lensView = LiquidLensView()
+
+    init() {
+        super.init(frame: .zero)
+        backgroundColor = .clear
+
+        lensView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(lensView)
+
+        let content = UIImageView(image: UIImage(systemName: "sparkles"))
+        content.tintColor = .white
+        content.contentMode = .center
+        lensView.setLiftedContentView(content)
+
+        NSLayoutConstraint.activate([
+            lensView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            lensView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            lensView.topAnchor.constraint(equalTo: topAnchor),
+            lensView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+private struct LiquidLensRepresentable: UIViewRepresentable {
+    var isLifted: Bool
+
+    func makeUIView(context: Context) -> LensHostView {
+        let host = LensHostView()
+        host.lensView.setLifted(isLifted, animated: false, alongsideAnimations: nil, completion: nil)
+        return host
+    }
+
+    func updateUIView(_ uiView: LensHostView, context: Context) {
+        uiView.lensView.setLifted(isLifted, animated: true, alongsideAnimations: nil, completion: nil)
+    }
+}
+
+private struct FlowingBlueBackground: View {
     var body: some View {
         TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: false)) { timeline in
             let t = timeline.date.timeIntervalSinceReferenceDate

@@ -1,0 +1,15 @@
+{
+  "originHash" : "0667f88dd1198d004a9e555961f2137afdc4f3b69e99b55562b6bd256cdc1df2",
+  "pins" : [
+    {
+      "identity" : "liquidglasskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/DnV1eX/LiquidGlassKit.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "2eb41c5d0115d23179d7a3eb133cb07bac7bb7d8"
+      }
+    }
+  ],
+  "version" : 3
+}
