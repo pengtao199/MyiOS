@@ -4,14 +4,15 @@
 	classes = {
 	};
 	objectVersion = 77;
-		objects = {
+	objects = {
 
 /* Begin PBXBuildFile section */
-			B10D5A3D2F5A1A3300ABC001 /* LiquidGlassKit in Frameworks */ = {isa = PBXBuildFile; productRef = B10D5A3F2F5A1A3300ABC001 /* LiquidGlassKit */; };
+		B10D5A3D2F5A1A3300ABC001 /* LiquidGlassKit in Frameworks */ = {isa = PBXBuildFile; productRef = B10D5A3F2F5A1A3300ABC001 /* LiquidGlassKit */; };
+		B20E6B4D3A6B2B5500ABC002 /* Gelatin in Frameworks */ = {isa = PBXBuildFile; productRef = B20E6B4F3A6B2B5500ABC002 /* Gelatin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-			046E982F2F4C1AC1002D1988 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		046E982F2F4C1AC1002D1988 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,14 +24,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-			046E982C2F4C1AC1002D1988 /* Frameworks */ = {
-				isa = PBXFrameworksBuildPhase;
-				buildActionMask = 2147483647;
-				files = (
-					B10D5A3D2F5A1A3300ABC001 /* LiquidGlassKit in Frameworks */,
-				);
-				runOnlyForDeploymentPostprocessing = 0;
-			};
+		046E982C2F4C1AC1002D1988 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B20E6B4D3A6B2B5500ABC002 /* Gelatin in Frameworks */,
+				B10D5A3D2F5A1A3300ABC001 /* LiquidGlassKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -65,16 +67,17 @@
 			);
 			dependencies = (
 			);
-				fileSystemSynchronizedGroups = (
-					046E98312F4C1AC1002D1988 /* Demo */,
-				);
-				name = Demo;
-				packageProductDependencies = (
-					B10D5A3F2F5A1A3300ABC001 /* LiquidGlassKit */,
-				);
-				productName = Demo;
-				productReference = 046E982F2F4C1AC1002D1988 /* Demo.app */;
-				productType = "com.apple.product-type.application";
+			fileSystemSynchronizedGroups = (
+				046E98312F4C1AC1002D1988 /* Demo */,
+			);
+			name = Demo;
+			packageProductDependencies = (
+				B20E6B4F3A6B2B5500ABC002 /* Gelatin */,
+				B10D5A3F2F5A1A3300ABC001 /* LiquidGlassKit */,
+			);
+			productName = Demo;
+			productReference = 046E982F2F4C1AC1002D1988 /* Demo.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -100,17 +103,18 @@
 			);
 			mainGroup = 046E98262F4C1AC1002D1988;
 			minimizedProjectReferenceProxies = 1;
-				preferredProjectObjectVersion = 77;
-				productRefGroup = 046E98302F4C1AC1002D1988 /* Products */;
-				projectDirPath = "";
-				projectRoot = "";
-				packageReferences = (
-					B10D5A3E2F5A1A3300ABC001 /* XCRemoteSwiftPackageReference "LiquidGlassKit" */,
-				);
-				targets = (
-					046E982E2F4C1AC1002D1988 /* Demo */,
-				);
-			};
+			packageReferences = (
+				B20E6B4E3A6B2B5500ABC002 /* XCRemoteSwiftPackageReference "Gelatin" */,
+				B10D5A3E2F5A1A3300ABC001 /* XCRemoteSwiftPackageReference "LiquidGlassKit" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 046E98302F4C1AC1002D1988 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				046E982E2F4C1AC1002D1988 /* Demo */,
+			);
+		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -133,27 +137,8 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-			B10D5A3E2F5A1A3300ABC001 /* XCRemoteSwiftPackageReference "LiquidGlassKit" */ = {
-				isa = XCRemoteSwiftPackageReference;
-				repositoryURL = "https://github.com/DnV1eX/LiquidGlassKit.git";
-				requirement = {
-					branch = master;
-					kind = branch;
-				};
-			};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-			B10D5A3F2F5A1A3300ABC001 /* LiquidGlassKit */ = {
-				isa = XCSwiftPackageProductDependency;
-				package = B10D5A3E2F5A1A3300ABC001 /* XCRemoteSwiftPackageReference "LiquidGlassKit" */;
-				productName = LiquidGlassKit;
-			};
-/* End XCSwiftPackageProductDependency section */
-
 /* Begin XCBuildConfiguration section */
-			046E98382F4C1AC4002D1988 /* Debug */ = {
+		046E98382F4C1AC4002D1988 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -370,6 +355,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B10D5A3E2F5A1A3300ABC001 /* XCRemoteSwiftPackageReference "LiquidGlassKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DnV1eX/LiquidGlassKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		B20E6B4E3A6B2B5500ABC002 /* XCRemoteSwiftPackageReference "Gelatin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Polarizz/Gelatin";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B10D5A3F2F5A1A3300ABC001 /* LiquidGlassKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B10D5A3E2F5A1A3300ABC001 /* XCRemoteSwiftPackageReference "LiquidGlassKit" */;
+			productName = LiquidGlassKit;
+		};
+		B20E6B4F3A6B2B5500ABC002 /* Gelatin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B20E6B4E3A6B2B5500ABC002 /* XCRemoteSwiftPackageReference "Gelatin" */;
+			productName = Gelatin;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 046E98272F4C1AC1002D1988 /* Project object */;
 }

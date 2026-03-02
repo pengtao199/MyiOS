@@ -1,6 +1,14 @@
 {
-  "originHash" : "0667f88dd1198d004a9e555961f2137afdc4f3b69e99b55562b6bd256cdc1df2",
   "pins" : [
+    {
+      "identity" : "gelatin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Polarizz/Gelatin",
+      "state" : {
+        "revision" : "2a3ad4cdabe0b9d33b75b6d8839f6d36a1a1b81e",
+        "version" : "1.0.0"
+      }
+    },
     {
       "identity" : "liquidglasskit",
       "kind" : "remoteSourceControl",
@@ -11,5 +19,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }

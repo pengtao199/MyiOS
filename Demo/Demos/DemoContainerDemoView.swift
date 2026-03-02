@@ -11,6 +11,9 @@ private enum DemoEntry: String, CaseIterable, Identifiable {
     case iconShowcase
     case cardSwipe
     case legacyClock
+    case gelatinButton
+    case liquidGlass
+    case theseusShowcase
 
     var id: String { rawValue }
 
@@ -22,6 +25,12 @@ private enum DemoEntry: String, CaseIterable, Identifiable {
             "Card Swipe"
         case .legacyClock:
             "Legacy Clock"
+        case .gelatinButton:
+            "Gelatin Button"
+        case .liquidGlass:
+            "Liquid Glass"
+        case .theseusShowcase:
+            "Theseus Showcase"
         }
     }
 
@@ -33,6 +42,12 @@ private enum DemoEntry: String, CaseIterable, Identifiable {
             .orange
         case .legacyClock:
             .mint
+        case .gelatinButton:
+            .blue
+        case .liquidGlass:
+            .indigo
+        case .theseusShowcase:
+            .teal
         }
     }
 
@@ -45,6 +60,12 @@ private enum DemoEntry: String, CaseIterable, Identifiable {
             CardSwipeDemoView()
         case .legacyClock:
             LegacyClockDemoView()
+        case .gelatinButton:
+            GelatinButtonDemoView()
+        case .liquidGlass:
+            LiquidGlassDemoView()
+        case .theseusShowcase:
+            TheseusShowcaseDemoView()
         }
     }
 }

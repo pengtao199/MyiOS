@@ -77,3 +77,9 @@
 - 增加一个 `DemoIndexView` 作为统一示例目录页（分类展示每个 demo）。
 - 把当前页面拆分为 `Pages/`、`Components/`、`Dependencies/` 三层目录，降低“文件混杂感”。
 - 为每个可复用组件补一段简短注释：用途、输入参数、适用系统版本。
+
+## 12. Skills 调用规则（新增）
+- 用户提出“修改/重构/优化/修复”请求时，Agent 必须先匹配并优先调用相关 Skills，再执行代码改动。
+- iOS/SwiftUI 任务默认优先使用：`swiftui-expert-skill`（必要时补充 `mobile-ios-design`、`swift-style`）。
+- 若请求覆盖多个领域，按最小必要集合组合 Skills，避免无关技能加载。
+- 若技能缺失或无法读取，需明确说明并采用等价最佳实践继续完成任务。
